@@ -22,4 +22,8 @@ export default {
     Update: '/update',
     Delete: '/delete/:id',
   },
+  Auth: {
+    Base: '/auth',
+    Get: '/',
+  }
 } as const;
