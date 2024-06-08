@@ -30,7 +30,7 @@ async function getById(req: IReq, res: IRes) {
         },
         () => {
             return res
-                .status(HttpStatusCodes.OK)
+                .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
                 .json({ code: 500, message: "[DATABASE ERROR] - Please check the logs" });
         }
     );
@@ -49,7 +49,7 @@ async function getByTitleURL(req: IReq, res: IRes) {
         },
         () => {
             return res
-                .status(HttpStatusCodes.OK)
+                .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
                 .json({ code: 500, message: "[DATABASE ERROR] - Please check the logs" });
         }
     );

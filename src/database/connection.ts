@@ -1,7 +1,7 @@
 import { FieldPacket, QueryError, QueryResult } from "mysql2";
 import pool from "./database";
 
-export default function dbQuery(
+export default async function dbQuery(
     query: string,
     params: any[],
     onSuccess: (results: QueryResult, fields: FieldPacket[]) => void,
@@ -24,4 +24,14 @@ export default function dbQuery(
             con.release();
         });
     });
+}
+
+export interface InsertResult {
+    fieldCount: number;
+    affectedRows: number;
+    insertId: number;
+    info: string;
+    serverStatus: number;
+    warningStatus: number;
+    changedRows: number;
 }

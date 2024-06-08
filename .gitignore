@@ -2,3 +2,5 @@
 dist/
 **/**/*.log
 env/*
+*.key
+*.pem
