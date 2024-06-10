@@ -20,7 +20,7 @@ export const verifyJWT = (token: string): Promise<string> => {
         try {
             jwt.verify(token, cert, function (err, decoded) {
                 if (err) {
-                    console.log("Err2or: ", err);
+                    console.log("Error: ", err);
                     reject(err);
                 } else {
                     resolve(JSON.stringify(decoded)!);

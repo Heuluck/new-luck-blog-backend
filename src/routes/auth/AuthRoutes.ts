@@ -15,7 +15,7 @@ async function Login(req: IReq<{ name: string; password: string }>, res: IRes) {
         (results) => {
             if (results.constructor === Array && results.length === 1) {
                 const user: User = results[0] as User;
-                signJWT({ id: user.id, name: user.name, type: user.type }, "1d").then(
+                signJWT({ id: user.id, name: user.name, email: user.email, type: user.type }, "1d").then(
                     (token) => {
                         return res.status(HttpStatusCodes.OK).json({ code: 200, message: "登录成功", token });
                     },
@@ -50,7 +50,7 @@ async function Register(req: IReq<{ name: string; password: string; email: strin
             `INSERT INTO users (id, name, password, type, email, created_at) SELECT NULL, ?, ?, ?, ?, ? WHERE NOT EXISTS(SELECT name FROM users WHERE name = ?);`,
             [name, SHA3Password, "reader", email, new Date(), name],
             (results) => {
-                if (typeof(results) == "object") {
+                if (typeof results == "object") {
                     const insertResult: InsertResult = results as InsertResult;
                     if (insertResult.affectedRows === 1)
                         dbQuery(
@@ -59,7 +59,10 @@ async function Register(req: IReq<{ name: string; password: string; email: strin
                             (results) => {
                                 if (results.constructor === Array && results.length === 1) {
                                     const user: User = results[0] as User;
-                                    signJWT({ id: user.id, name: user.name, type: user.type }, "1d").then(
+                                    signJWT(
+                                        { id: user.id, name: user.name, email: user.email, type: user.type },
+                                        "1d"
+                                    ).then(
                                         (token) => {
                                             return res
                                                 .status(HttpStatusCodes.OK)
